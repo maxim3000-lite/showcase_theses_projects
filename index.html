@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en" data-stage="promotion">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PhD Thesis · Maximilian Neururer – Data Analysis &amp; AI in Crashworthiness Design</title>
+  <meta name="description" content="PhD at Volkswagen AG: turning high-dimensional engineering data into traceable relationships, connecting them in a knowledge graph and making them accessible to AI assistants.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    (function (d) {
+      d.classList.add('js');
+      try {
+        if (d.dataset.stage && localStorage.getItem('stage') !== 'off' && document.createElement('canvas').getContext('webgl')) d.classList.add('has-stage');
+      } catch (e) { /* continue without 3D */ }
+    })(document.documentElement);
+  </script>
+  <script src="assets/js/stage/core.js" defer></script>
+  <script src="assets/js/stage/car.js" defer></script>
+  <script src="assets/js/stage/structure.js" defer></script>
+  <script src="assets/js/stage/crash.js" defer></script>
+  <script src="assets/js/stage/meshset.js" defer></script>
+  <script src="assets/js/stage/forms.js" defer></script>
+  <script src="assets/js/stage/timelines.js" defer></script>
+  <script src="assets/js/stage/stage.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html"><span class="brand__prompt">~$</span>Maximilian Neururer<span class="brand__cursor" aria-hidden="true"></span></a>
+      <nav class="tabs" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html" aria-current="page"><span class="tab__idx">01</span>PhD Thesis</a></li>
+          <li><a href="masterarbeit.html"><span class="tab__idx">02</span>Master's Thesis</a></li>
+          <li><a href="bachelorarbeit.html"><span class="tab__idx">03</span>Bachelor's Thesis</a></li>
+          <li><a href="kontakt.html"><span class="tab__idx">04</span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 3D stage (decorative; all content is in the HTML) -->
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="stage-labels" aria-hidden="true"></div>
+  <div class="fe-hud" aria-hidden="true">
+    <p class="fe-hud__title">FE model · schematic</p>
+    <p class="fe-hud__row"><span>Nodes</span><b data-hud="nodes">–</b></p>
+    <p class="fe-hud__row"><span>Elements</span><b data-hud="elems">–</b></p>
+    <div class="fe-hud__crash">
+      <p class="fe-hud__row"><span>Time step</span><b data-hud="step">0 / 40</b></p>
+      <span class="fe-hud__bar"></span>
+      <p class="fe-hud__ticks"><span>0</span><span>plastic strain</span><span>max</span></p>
+    </div>
+  </div>
+  <button class="btn stage-toggle" type="button" aria-pressed="true" hidden>3D view</button>
+
+  <main id="main">
+
+    <!-- ===== 01 · Location ===== -->
+    <section class="locator" data-scene="hero" data-lat="52.4227" data-lon="10.7865" data-place="Wolfsburg" aria-labelledby="loc-title">
+      <div class="locator__map" role="img" aria-label="Map marking the location Wolfsburg, 52.4227° N, 10.7865° E"></div>
+
+      <div class="locator__hud">
+        <p class="locator__path"><span>~/career</span>/phd</p>
+        <h1 id="loc-title" data-type>PhD Thesis</h1>
+        <div class="coords" aria-live="polite">
+          <span class="coords__status">Location</span>
+          <span class="coords__val">52.4227° N · 10.7865° E</span>
+          <span class="coords__dms">52°25′22″ N  10°47′11″ E</span>
+        </div>
+      </div>
+
+      <aside class="infowin" data-type-manual aria-labelledby="info-title">
+        <div class="infowin__head">
+          <div>
+            <p>$ cat location.info</p>
+            <h2 id="info-title">Volkswagen AG</h2>
+          </div>
+        </div>
+        <dl>
+          <dt>Company</dt><dd data-type="fast">Volkswagen AG</dd>
+          <dt>Location</dt><dd data-type="fast">Wolfsburg</dd>
+          <dt>Department</dt><dd data-type="fast">CAE Methods</dd>
+          <dt>Team</dt><dd data-type="fast">Crash</dd>
+          <dt>Topic</dt><dd data-type="fast">Data-Driven Knowledge Management</dd>
+        </dl>
+      </aside>
+
+      <a class="scroll-hint" href="#title">scroll <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <!-- ===== 02 · Brief (stays pinned during the complication) ===== -->
+    <section class="title-hero scene scene--long" id="title" data-scene="title" aria-labelledby="title-h">
+      <div class="container">
+        <h2 class="sr-only" id="title-h">Dissertation</h2>
+        <p class="brief" data-type="fast">My PhD thesis focuses on knowledge management in CAE, specifically in the field of simulation-based crashworthiness design. As virtual testing continues to expand, both the size of individual simulation models and the number of simulations across different load cases, vehicle variants and levels of detail continue to grow. Combined with the highly nonlinear behaviour of vehicle structures under crash loading, this results in increasingly large and complex datasets that are difficult to analyse and utilize systematically. My goal is to address these challenges by applying data analysis methods to structure, analyse and connect simulation data, making engineering knowledge easier to extract, reuse and leverage in the design process.</p>
+      </div>
+    </section>
+
+    <!-- ===== 03–11 · Complication (⚡) and solution (💡) – the brief stays above ===== -->
+    <section class="section--bare" aria-label="Complication">
+      <div class="container">
+        <div class="crash crash--steps">
+          <div class="crash__steps">
+            <div class="step" data-scene="crash-intro" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span></div>
+                <p>What happens in a frontal crash is the result of many coupled nonlinearities. The FE model starts moving – scroll through the simulation.</p>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step0" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span><span class="callout__count">Load case</span></div>
+                <h3>Frontal crash against a rigid wall</h3>
+                <p>A standard load case in crashworthiness design – and a good example of how much happens within a few milliseconds.</p>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step1" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span><span class="callout__count">Impact</span></div>
+                <h3>The structure deforms</h3>
+                <p>The crash boxes fold, one longitudinal rail buckles and the hood bulges. Forces flow along three load paths; the colour contour shows the plastic strain (schematic).</p>
+                <ul class="paths">
+                  <li><i style="--c:var(--blue)"></i>Load path 1 · crash box → longitudinal rail → rocker</li>
+                  <li><i style="--c:var(--warn)"></i>Load path 2 · upper rail (shotgun) → A-pillar → roof</li>
+                  <li><i style="--c:var(--ink)"></i>Load path 3 · subframe → tunnel</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step2" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span><span class="callout__count">Nonlinearity 1/4</span></div>
+                <h3>Elastic-plastic material behaviour</h3>
+                <p>The material is loaded beyond its yield point: on the flow curve, the state moves from the elastic into the plastic range – the deformation remains.</p>
+                <div class="fig" data-kind="flow" data-yield="0.34">
+                  <svg viewBox="0 0 300 160" role="img" aria-label="Flow curve: stress over strain. The state point moves from the elastic into the plastic range.">
+                    <rect class="fig-elastic" x="40" y="14" width="50" height="116"/>
+                    <rect class="fig-plastic-zone" x="90" y="14" width="190" height="116"/>
+                    <path class="fig-axis" d="M40,10 L40,130 L286,130"/>
+                    <path class="fig-curve" d="M40,130 L90,50 C120,38 180,30 272,24"/>
+                    <circle class="fig-dot" cx="40" cy="130" r="6"/>
+                    <text class="fig-label" x="44" y="146">elastic</text>
+                    <text class="fig-label" x="160" y="146">plastic</text>
+                    <text class="fig-label fig-label--strong" x="30" y="20" text-anchor="end">σ</text>
+                    <text class="fig-label fig-label--strong" x="290" y="146" text-anchor="end">ε</text>
+                    <text class="fig-label" x="96" y="70">yield point</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step3" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span><span class="callout__count">Nonlinearity 2/4</span></div>
+                <h3>Buckling of profiles</h3>
+                <p>Under axial compression, one longitudinal rail buckles to one side: a plastic hinge forms – a single kink instead of even folding. Small imperfections decide whether and where this happens.</p>
+                <div class="fig" data-kind="buckle">
+                  <svg viewBox="0 0 300 160" role="img" aria-label="A profile under axial compression kinks in one direction; a plastic hinge forms at the kink.">
+                    <defs>
+                      <pattern id="hatch-s" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                        <line class="hatch-line" x1="0" y1="0" x2="0" y2="6"/>
+                      </pattern>
+                    </defs>
+                    <rect class="fig-clamp" x="16" y="46" width="22" height="68"/>
+                    <path class="fig-beam" d="M40,80 L260,80"/>
+                    <circle class="fig-hinge" cx="128" cy="80" r="6"/>
+                    <g class="fig-arrow-g">
+                      <line class="fig-arrow" x1="300" y1="80" x2="276" y2="80"/>
+                      <path class="fig-arrow" d="M276,72 L266,80 L276,88 Z"/>
+                      <text class="fig-label fig-label--strong" x="282" y="106">F</text>
+                    </g>
+                    <text class="fig-label" x="40" y="148">axial compression → buckling (plastic hinge)</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step4" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span><span class="callout__count">Nonlinearity 3/4</span></div>
+                <h3>Material failure</h3>
+                <p>At the joint between longitudinal rail and rocker, elements exceed their failure limit and are deleted – a crack runs around the profile and the load path is interrupted.</p>
+                <div class="fig">
+                  <svg viewBox="0 0 300 160" role="img" aria-label="FE mesh under tension: elements exceed their failure limit, are deleted and a crack forms.">
+                    <g class="mesh" data-mesh></g>
+                    <path class="fig-crack" d="M150,22 L153,42 L147,62 L169,72 L167,100 L151,122"/>
+                    <path class="fig-arrow" d="M34,72 L10,72 M18,64 L8,72 L18,80"/>
+                    <path class="fig-arrow" d="M266,72 L290,72 M282,64 L292,72 L282,80"/>
+                    <text class="fig-label" x="40" y="148">element failure → elements deleted, crack</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step5" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span><span class="callout__count">Nonlinearity 4/4</span></div>
+                <h3>Component collisions</h3>
+                <p>Late in the crash, the engine tilts backwards. The brake booster tilts and strikes the firewall with its edge. This causes a local intrusion effect.</p>
+                <div class="fig">
+                  <svg viewBox="0 0 300 160" role="img" aria-label="The brake booster is pushed backwards, tilts and collides with the firewall, which deforms.">
+                    <path class="fig-firewall fig-firewall--a" d="M100,16 C96,60 96,100 94,140"/>
+                    <path class="fig-firewall fig-firewall--b" d="M100,16 C82,60 82,100 94,140"/>
+                    <rect class="fig-engine" x="236" y="36" width="60" height="78" rx="6"/>
+                    <g class="fig-booster">
+                      <line x1="190" y1="72" x2="236" y2="72"/>
+                      <circle cx="190" cy="72" r="34"/>
+                      <text class="fig-label fig-label--strong" x="190" y="76" text-anchor="middle">booster</text>
+                    </g>
+                    <path class="fig-flash" d="M92,58 l5,10 l9,-5 l-3,10 l10,3 l-10,4 l5,9 l-9,-4 l-3,10 l-4,-10 l-9,4 l4,-9 l-9,-5 l10,-2 z"/>
+                    <text class="fig-label" x="96" y="154" text-anchor="middle">firewall</text>
+                    <text class="fig-label" x="290" y="154" text-anchor="end">brake booster ← engine</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step7" data-pin="title">
+              <div class="step__card callout callout--problem">
+                <div class="callout__head"><span class="callout__tag">Complication</span><span class="callout__count">Overview</span></div>
+                <h3>Everything happens at once</h3>
+                <p>This makes predictions very difficult: there are countless effects and interactions in the structure – and they influence each other.</p>
+                <ul class="legend">
+                  <li><span class="legend__n">1</span>Elastic-plastic material behaviour</li>
+                  <li><span class="legend__n">2</span>Buckling of profiles</li>
+                  <li><span class="legend__n">3</span>Material failure</li>
+                  <li><span class="legend__n">4</span>Component collisions</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="step" data-scene="step8" data-pin="title">
+              <div class="step__card callout callout--solution">
+                <div class="callout__head"><span class="callout__tag">Solution</span><span class="callout__count">Data lake</span></div>
+                <h3>The data is already there</h3>
+                <p>We have vast amounts of simulation data – mostly stored in data lakes – and a large toolbox of machine learning and data analysis methods.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 12 · Unlocking the treasure (long scene: tesseract → crashed cloud → relevant points) ===== -->
+    <section class="section section--tint scene scene--long" data-scene="challenges" aria-labelledby="treasure">
+      <div class="container">
+        <h2 id="treasure" data-type>Unlocking the treasure</h2>
+        <p class="lead" data-type="fast">Now it's time to unlock this treasure with new methods of data analysis and AI – and to establish data-driven development processes.</p>
+        <p class="lead" data-type="fast">We don't lack data – and the expert knowledge to feed AI assistants is buried in it.</p>
+      </div>
+    </section>
+
+    <!-- ===== 13 · Anomaly detection ===== -->
+    <section class="section scene" data-scene="anomaly" aria-labelledby="anomaly-h">
+      <div class="container">
+        <p class="kicker">Anomaly detection</p>
+        <h2 id="anomaly-h" data-type>Learn what is normal – flag what is not</h2>
+        <p data-type="fast">Each point is one simulation run (schematic). Clusters are the typical deformation modes; runs that deviate are flagged automatically – this is exactly where the knowledge hides.</p>
+        <ul class="paths">
+          <li><i class="tri"></i>normal: known deformation modes</li>
+          <li><i style="--c:var(--amber)"></i>slightly unusual</li>
+          <li><i style="--c:var(--warn)"></i>anomaly: significant increase in intrusion, unexpected buckling, structural integrity</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 14 · Change → effect ===== -->
+    <section class="section section--tint scene" data-scene="link" aria-labelledby="link-title">
+      <div class="container">
+        <div class="linkfig">
+          <figure class="linkfig__canvas" style="margin:0" role="img" aria-label="Schematic side view of the crashed front end: a change in the geometry of the longitudinal rail is linked to a change in firewall intrusion."></figure>
+          <div>
+            <h2 id="link-title" data-type>From change to effect</h2>
+            <p class="muted">Schematic example: one modification, one condition, one observed effect. Switch the variant and watch the structure in the scene.</p>
+            <div class="variant-switch" role="group" aria-label="Choose variant">
+              <button class="btn" type="button" data-set-variant="A" aria-pressed="true">Variant A</button>
+              <button class="btn" type="button" data-set-variant="B" aria-pressed="false">Variant B<span class="tap-hint" aria-hidden="true"><span class="tap-hint__ripple"></span><svg class="tap-hint__hand" viewBox="0 0 32 32"><defs><g id="hand-shape"><rect x="9.6" y="1.6" width="5" height="16" rx="2.5"/><rect x="14.4" y="10.6" width="4.6" height="9" rx="2.3"/><rect x="18.8" y="11.8" width="4.4" height="8.4" rx="2.2"/><rect x="23" y="13.4" width="4" height="7.4" rx="2"/><path d="M9.6 15.5H27v6.2c0 4.4-3.3 7.8-7.8 7.8h-3.5c-3.4 0-6.1-2.7-6.1-6.1z"/><rect x="3.2" y="17" width="9.8" height="4.6" rx="2.3" transform="rotate(38 9.6 20)"/></g></defs><use class="tap-hint__edge" href="#hand-shape"/><use class="tap-hint__fill" href="#hand-shape"/><path class="tap-hint__line" d="M14.6 14.4v4.4M19 15.2v3.8M23.1 16.2v3"/></svg></span></button>
+            </div>
+            <dl class="triple">
+              <div class="x"><dt>X</dt><dd>Geometry of the longitudinal rail changed</dd></div>
+              <div class="y"><dt>Y</dt><dd>Load case: frontal crash, model variant <span class="ph">[…]</span></dd></div>
+              <div class="z"><dt>Z</dt><dd>Changed firewall intrusion</dd></div>
+            </dl>
+            <div class="bars">
+              <div class="bar"><span>Intrusion</span><span class="bar__track"><span class="bar__fill" data-variant style="--w:82%"></span></span></div>
+              <p class="muted" style="margin:0;font-size:.82rem" data-variant-desc aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 15 · Knowledge Graph ===== -->
+    <section class="section scene" data-scene="kg" aria-labelledby="kg-title">
+      <div class="container">
+        <h2 id="kg-title" data-type>A Knowledge Graph of engineering experience</h2>
+        <div class="story">
+          <p data-type="fast">The key step is what happens next: these individual observations are not stored as isolated records. They are connected in a <strong>Knowledge Graph</strong>. Over time, the graph builds relationships between components, modifications, physical effects, load cases, model variants and previous engineering decisions.</p>
+          <p data-type="fast">In this way, thousands of individual simulation runs gradually form a connected representation of engineering experience. This creates a particularly powerful foundation for AI.</p>
+        </div>
+        <figure class="kg">
+          <div class="kg__canvas" role="img" aria-label="Knowledge graph: a geometry modification changes the longitudinal rail and causes a change in firewall intrusion, observed in the frontal crash load case. The modification belongs to model variant B, which is backed by a simulation and selected by a design decision."></div>
+          <ul class="kg__legend" aria-hidden="true"></ul>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== 16 · AI assistant ===== -->
+    <section class="section section--tint scene" data-scene="ai" aria-labelledby="ai-title">
+      <div class="container">
+        <h2 id="ai-title" data-type>Asking the assistant</h2>
+        <div class="story">
+          <p data-type="fast">Imagine an engineer designing a new structure who observes an unwanted deformation pattern. Instead of manually searching old projects, the engineer asks an AI assistant.</p>
+        </div>
+        <div class="term chat reveal">
+          <div class="term__bar" aria-hidden="true"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title">engineering-assistant</span></div>
+          <div class="term__body">
+            <p class="chat__user"><b>engineer&gt;</b> <span data-type>"Have we seen this behaviour before, and which design changes improved it?"</span></p>
+            <p class="chat__ai"><b>assistant&gt;</b> navigating knowledge graph …</p>
+            <ol class="trail" aria-label="Path through the knowledge graph">
+              <li style="--i:0">current problem</li>
+              <li style="--i:1">similar physical effects</li>
+              <li style="--i:2">previous components &amp; projects</li>
+              <li style="--i:3">successful modifications</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 17 · Talks & publications ===== -->
+    <section class="section scene" data-scene="pubs" aria-labelledby="pubs">
+      <div class="container">
+        <h2 id="pubs" data-type>Talks &amp; Publications</h2>
+        <ul class="pubs">
+          <li class="card pub reveal">
+            <span class="pub__tag" aria-hidden="true">VDI</span>
+            <div>
+              <h3 lang="de">Ein intelligenter Assistent für die Crashauslegung – Perspektiven und Voraussetzungen</h3>
+              <p>21st VDI Conference <span lang="de">„SIMVEC – Auslegung und Absicherung von Fahrzeugsystemen“</span>, Baden-Baden, Germany</p>
+            </div>
+          </li>
+          <li class="card pub reveal" style="--delay:.1s">
+            <span class="pub__tag" aria-hidden="true">AI/ML</span>
+            <div>
+              <h3>An Intelligent Assistant for Automotive Design for Crashworthiness – Development and Application Insights</h3>
+              <p>NAFEMS Artificial Intelligence and Machine Learning in CAE Applications Conference, Munich, Germany</p>
+            </div>
+          </li>
+        </ul>
+        <a class="next-link" href="masterarbeit.html" style="margin-top:2.5rem">
+          <span>cd ../master-thesis</span><span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© 2026 Maximilian Neururer</span>
+      <span><a href="kontakt.html">Contact</a> · <a href="impressum.html">Legal notice</a> · <a href="datenschutz.html">Privacy policy</a></span>
+    </div>
+  </footer>
+</body>
+</html>

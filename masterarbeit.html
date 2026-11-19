@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" data-stage="master">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Master's Thesis · Maximilian Neururer</title>
+  <meta name="description" content="Master's thesis with Robert Bosch Automotive Steering GmbH and Technical University of Leoben: validating a new method to compute the tooth root failure of induction-hardened steering pinions.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    (function (d) {
+      d.classList.add('js');
+      try {
+        if (d.dataset.stage && localStorage.getItem('stage') !== 'off' && document.createElement('canvas').getContext('webgl')) d.classList.add('has-stage');
+      } catch (e) { /* continue without 3D */ }
+    })(document.documentElement);
+  </script>
+  <script src="assets/js/stage/core.js" defer></script>
+  <script src="assets/js/stage/car.js" defer></script>
+  <script src="assets/js/stage/structure.js" defer></script>
+  <script src="assets/js/stage/crash.js" defer></script>
+  <script src="assets/js/stage/meshset.js" defer></script>
+  <script src="assets/js/stage/objects.js" defer></script>
+  <script src="assets/js/stage/forms.js" defer></script>
+  <script src="assets/js/stage/timelines.js" defer></script>
+  <script src="assets/js/stage/stage.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html"><span class="brand__prompt">~$</span>Maximilian Neururer<span class="brand__cursor" aria-hidden="true"></span></a>
+      <nav class="tabs" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html"><span class="tab__idx">01</span>PhD Thesis</a></li>
+          <li><a href="masterarbeit.html" aria-current="page"><span class="tab__idx">02</span>Master's Thesis</a></li>
+          <li><a href="bachelorarbeit.html"><span class="tab__idx">03</span>Bachelor's Thesis</a></li>
+          <li><a href="kontakt.html"><span class="tab__idx">04</span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="stage-labels" aria-hidden="true"></div>
+  <button class="btn stage-toggle" type="button" aria-pressed="true" hidden>3D view</button>
+
+  <main id="main">
+    <!-- ===== 01 · Location ===== -->
+    <section class="locator" data-scene="hero" data-lat="48.7999" data-lon="9.7976" data-place="Schwäbisch Gmünd" aria-labelledby="loc-title">
+      <div class="locator__map" role="img" aria-label="Map marking the location Schwäbisch Gmünd, 48.7999° N, 9.7976° E"></div>
+      <div class="locator__hud">
+        <p class="locator__path"><span>~/career</span>/master-thesis</p>
+        <h1 id="loc-title" data-type>Master's Thesis</h1>
+        <div class="coords" aria-live="polite">
+          <span class="coords__status">Location</span>
+          <span class="coords__val">48.7999° N · 9.7976° E</span>
+          <span class="coords__dms">48°48′00″ N  9°47′51″ E</span>
+        </div>
+      </div>
+      <aside class="infowin" data-type-manual aria-labelledby="info-title">
+        <div class="infowin__head">
+          <div>
+            <p>$ cat location.info</p>
+            <h2 id="info-title">Robert Bosch Automotive Steering GmbH</h2>
+          </div>
+        </div>
+        <dl>
+          <dt>Company</dt><dd data-type="fast">Robert Bosch Automotive Steering GmbH</dd>
+          <dt>Location</dt><dd data-type="fast">Schwäbisch Gmünd, Germany</dd>
+          <dt>University</dt><dd data-type="fast">Technical University of Leoben</dd>
+          <dt>Topic</dt><dd data-type="fast">Strength of hardened steering pinions</dd>
+        </dl>
+      </aside>
+      <a class="scroll-hint" href="#title">scroll <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <!-- ===== 02 · Title ===== -->
+    <section class="title-hero scene" id="title" data-scene="title" aria-labelledby="title-h">
+      <div class="container">
+        <h2 class="sr-only" id="title-h">Thesis title</h2>
+        <p class="kicker">Master's thesis · 2022</p>
+        <p class="title-hero__statement caret-persist" data-type="title">Validation of a New Method to Compute the Gearing Tooth Root Failure</p>
+        <p class="brief" data-type="fast">How much force can a hardened steering pinion take before a tooth breaks – and can we predict it without simulating the entire heat treatment?</p>
+      </div>
+    </section>
+
+    <!-- ===== 03 · Situation ===== -->
+    <section class="section section--tint scene" data-scene="situation" aria-labelledby="situation">
+      <div class="container">
+        <p class="kicker">Situation</p>
+        <h2 id="situation" data-type>Every steering move passes through a few teeth</h2>
+        <p data-type="fast">The steering gear turns the rotation of the steering wheel into a linear movement of the rack, which moves the wheels. In a rack-and-pinion gear, the complete steering force is transmitted through the tooth contact between pinion and rack.</p>
+        <div class="fig fig--gear">
+          <svg viewBox="0 0 300 160" role="img" aria-label="Rack-and-pinion gear: the pinion turns back and forth, the rack moves sideways; the whole steering force passes through the tooth contact.">
+            <g class="g-rack">
+              <rect class="g-body" x="16" y="101" width="268" height="20" rx="3"/>
+              <line class="g-teeth g-teeth--rack" x1="16" y1="97" x2="284" y2="97"/>
+            </g>
+            <g class="g-pinion">
+              <circle class="g-teeth" cx="150" cy="56" r="37" pathLength="160"/>
+              <circle class="g-body" cx="150" cy="56" r="33"/>
+              <circle class="g-hub" cx="150" cy="56" r="9"/>
+              <line class="g-spoke" x1="150" y1="47" x2="150" y2="30"/>
+            </g>
+            <circle class="g-contact" cx="149" cy="95" r="6"/>
+            <path class="g-arc" d="M96,46 A56,56 0 0 1 120,14"/>
+            <path class="g-arc-head" d="M113,13 L121,13.5 L118,21"/>
+            <text class="fig-label" x="18" y="22">steering wheel</text>
+            <text class="fig-label" x="18" y="34">(rotation)</text>
+            <path class="g-arc" d="M218,138 L272,138 M266,133 L273,138 L266,143 M82,138 L28,138 M34,133 L27,138 L34,143"/>
+            <text class="fig-label" x="150" y="141" text-anchor="middle">rack → wheels</text>
+            <path class="fig-lead" d="M164,92 L206,74"/>
+            <text class="fig-label fig-label--strong" x="208" y="66">tooth contact:</text>
+            <text class="fig-label" x="208" y="78">the whole steering force</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 · Complication ===== -->
+    <section class="section scene" data-scene="complication" aria-labelledby="complication">
+      <div class="container">
+        <p class="kicker kicker--warn">Complication</p>
+        <h2 id="complication" data-type>Hardened – but how strong exactly?</h2>
+        <p data-type="fast">The pinion is induction-hardened: its surface layer turns into hard martensite. Two effects make the tooth stronger – the harder surface and compressive residual stresses from the volume expansion of the hardened layer.</p>
+        <div class="fig fig--tooth">
+          <svg viewBox="0 0 300 160" role="img" aria-label="Cross-section of a hardened gear tooth: a hard surface layer with compressive residual stresses follows the tooth contour. Under load, the tooth root on the loaded side is the critical spot.">
+            <defs>
+              <clipPath id="tooth-clip"><path d="M20,128 L84,128 Q100,128 104,112 L128,30 Q131,22 140,22 L160,22 Q169,22 172,30 L196,112 Q200,128 216,128 L280,128 L280,146 L20,146 Z"/></clipPath>
+            </defs>
+            <path class="tooth-core" d="M20,128 L84,128 Q100,128 104,112 L128,30 Q131,22 140,22 L160,22 Q169,22 172,30 L196,112 Q200,128 216,128 L280,128 L280,146 L20,146 Z"/>
+            <g class="tooth-hard" clip-path="url(#tooth-clip)">
+              <path class="tooth-band tooth-band--inner" pathLength="100" d="M20,128 L84,128 Q100,128 104,112 L128,30 Q131,22 140,22 L160,22 Q169,22 172,30 L196,112 Q200,128 216,128 L280,128"/>
+              <path class="tooth-band tooth-band--outer" pathLength="100" d="M20,128 L84,128 Q100,128 104,112 L128,30 Q131,22 140,22 L160,22 Q169,22 172,30 L196,112 Q200,128 216,128 L280,128"/>
+            </g>
+            <path class="tooth-edge" d="M20,128 L84,128 Q100,128 104,112 L128,30 Q131,22 140,22 L160,22 Q169,22 172,30 L196,112 Q200,128 216,128 L280,128 L280,146 L20,146 Z"/>
+            <path class="fig-lead" d="M92,19 L129,27"/>
+            <text class="fig-label fig-label--strong" x="20" y="22">hardened layer</text>
+            <g class="tooth-rs">
+              <path class="tooth-arrow" d="M38,134 L54,134 M49,130.5 L55,134 L49,137.5 M84,134 L68,134 M73,130.5 L67,134 L73,137.5"/>
+              <text class="fig-label" x="20" y="157">compressive residual stress</text>
+            </g>
+            <g class="tooth-f">
+              <path class="tooth-load" d="M236,44 L190,57"/>
+              <path class="tooth-load-head" d="M197,51 L186.5,58 L199,60.5 Z"/>
+              <text class="fig-label fig-label--strong" x="240" y="44">F</text>
+            </g>
+            <g class="tooth-root-g">
+              <circle class="tooth-root" cx="203" cy="123" r="8"/>
+              <path class="fig-lead" d="M224,108 L210,118"/>
+              <text class="fig-label fig-label--strong" x="226" y="106">tooth root</text>
+            </g>
+          </svg>
+        </div>
+        <ul class="facts">
+          <li><b>Misuse load case</b>Pushing the car off a curb by steering at standstill – the driver applies the load without any limiter.</li>
+          <li><b>Costly to simulate</b>Full process-chain simulations of the heat treatment need extensive lab data, time and money.</li>
+          <li><b>Hard to access</b>Production is partly outsourced – samples and process data are hard to get.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 05 · Research question ===== -->
+    <section class="section section--tint scene" data-scene="rq" aria-labelledby="rq">
+      <div class="container">
+        <h2 id="rq" data-type>Research question</h2>
+        <div class="term reveal">
+          <div class="term__bar" aria-hidden="true"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title">research_question.txt</span></div>
+          <div class="term__body"><p data-type="fast">How can the static strength of an induction-hardened pinion be predicted reliably – including hardening contour and residual stresses – with a fast, cheap and universally applicable method?</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 · Approach ===== -->
+    <section class="section scene" data-scene="solution" aria-labelledby="solution">
+      <div class="container">
+        <p class="kicker">Approach</p>
+        <h2 id="solution" data-type>The shortcut: build the hardened state straight into the model</h2>
+        <p data-type="fast">Instead of simulating the entire heat treatment, the FE model is generated synthetically – with a realistic hardness distribution and the matching residual stresses, but without computing the microstructural transformation behind them.</p>
+      </div>
+    </section>
+
+    <!-- ===== 07 · Why it matters ===== -->
+    <section class="section section--tint scene" data-scene="results" aria-labelledby="results">
+      <div class="container">
+        <h2 id="results" data-type>Why it matters</h2>
+        <p data-type="fast">The pinion is a safety-relevant part. The aim: a validated shortcut that brings the design for reliability according to the FKM nonlinear guideline into early development – at a fraction of the effort of a full process-chain simulation.</p>
+        <p class="kicker" style="margin-top:1.2rem">Toolbox</p>
+        <ul class="skills reveal">
+          <li>Nonlinear FEA</li>
+          <li>Abaqus</li>
+          <li>HyperMesh</li>
+          <li>optiSLang</li>
+          <li>Material modelling of hardened steel</li>
+          <li>Experimental validation</li>
+          <li>FKM nonlinear</li>
+        </ul>
+        <a class="next-link" href="bachelorarbeit.html" style="margin-top:2rem">
+          <span>cd ../bachelor-thesis</span><span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© 2026 Maximilian Neururer</span>
+      <span><a href="kontakt.html">Contact</a> · <a href="impressum.html">Legal notice</a> · <a href="datenschutz.html">Privacy policy</a></span>
+    </div>
+  </footer>
+</body>
+</html>

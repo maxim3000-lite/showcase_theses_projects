@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" data-stage="bachelor">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bachelor's Thesis · Maximilian Neururer</title>
+  <meta name="description" content="Bachelor's thesis with BMW Group Plant Steyr and Technical University of Leoben: dynamic simulation of the fracture splitting of connecting rods, including crack propagation.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    (function (d) {
+      d.classList.add('js');
+      try {
+        if (d.dataset.stage && localStorage.getItem('stage') !== 'off' && document.createElement('canvas').getContext('webgl')) d.classList.add('has-stage');
+      } catch (e) { /* continue without 3D */ }
+    })(document.documentElement);
+  </script>
+  <script src="assets/js/stage/core.js" defer></script>
+  <script src="assets/js/stage/car.js" defer></script>
+  <script src="assets/js/stage/structure.js" defer></script>
+  <script src="assets/js/stage/crash.js" defer></script>
+  <script src="assets/js/stage/meshset.js" defer></script>
+  <script src="assets/js/stage/objects.js" defer></script>
+  <script src="assets/js/stage/forms.js" defer></script>
+  <script src="assets/js/stage/timelines.js" defer></script>
+  <script src="assets/js/stage/stage.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html"><span class="brand__prompt">~$</span>Maximilian Neururer<span class="brand__cursor" aria-hidden="true"></span></a>
+      <nav class="tabs" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html"><span class="tab__idx">01</span>PhD Thesis</a></li>
+          <li><a href="masterarbeit.html"><span class="tab__idx">02</span>Master's Thesis</a></li>
+          <li><a href="bachelorarbeit.html" aria-current="page"><span class="tab__idx">03</span>Bachelor's Thesis</a></li>
+          <li><a href="kontakt.html"><span class="tab__idx">04</span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="stage-labels" aria-hidden="true"></div>
+  <button class="btn stage-toggle" type="button" aria-pressed="true" hidden>3D view</button>
+
+  <main id="main">
+    <!-- ===== 01 · Location ===== -->
+    <section class="locator" data-scene="hero" data-lat="48.0390" data-lon="14.4214" data-place="Steyr" aria-labelledby="loc-title">
+      <div class="locator__map" role="img" aria-label="Map marking the location Steyr, 48.0390° N, 14.4214° E"></div>
+      <div class="locator__hud">
+        <p class="locator__path"><span>~/career</span>/bachelor-thesis</p>
+        <h1 id="loc-title" data-type>Bachelor's Thesis</h1>
+        <div class="coords" aria-live="polite">
+          <span class="coords__status">Location</span>
+          <span class="coords__val">48.0390° N · 14.4214° E</span>
+          <span class="coords__dms">48°02′20″ N  14°25′17″ E</span>
+        </div>
+      </div>
+      <aside class="infowin" data-type-manual aria-labelledby="info-title">
+        <div class="infowin__head">
+          <div>
+            <p>$ cat location.info</p>
+            <h2 id="info-title">BMW Group Plant Steyr</h2>
+          </div>
+        </div>
+        <dl>
+          <dt>Company</dt><dd data-type="fast">BMW Group Plant Steyr</dd>
+          <dt>Location</dt><dd data-type="fast">Steyr, Austria</dd>
+          <dt>Division</dt><dd data-type="fast">R&amp;D Diesel Engines</dd>
+          <dt>Department</dt><dd data-type="fast">CAE</dd>
+          <dt>University</dt><dd data-type="fast">Technical University of Leoben</dd>
+          <dt>Topic</dt><dd data-type="fast">Fracture splitting of connecting rods</dd>
+        </dl>
+      </aside>
+      <a class="scroll-hint" href="#title">scroll <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <!-- ===== 02 · Title ===== -->
+    <section class="title-hero scene" id="title" data-scene="title" aria-labelledby="title-h">
+      <div class="container">
+        <h2 class="sr-only" id="title-h">Thesis title</h2>
+        <p class="kicker">Bachelor's thesis · 2020</p>
+        <p class="title-hero__statement caret-persist" data-type="title">Dynamic Simulation of the Cracking Process in Connecting Rod Manufacturing, Considering Crack Propagation</p>
+        <p class="brief" data-type="fast">Automotive connecting rods are manufactured by fracture splitting because it creates a highly precise, unique joint between rod and cap, enabling accurate mounting on the crankshaft without additional machining.</p>
+      </div>
+    </section>
+
+    <!-- ===== 03 · Situation ===== -->
+    <section class="section section--tint scene" data-scene="situation" aria-labelledby="situation">
+      <div class="container">
+        <p class="kicker">Situation</p>
+        <h2 id="situation" data-type>The most highly loaded part in the engine</h2>
+        <p data-type="fast">The connecting rod links piston and crankshaft: it turns the up-and-down motion of the piston into rotation and transmits the entire energy of combustion. To mount it on the crankshaft, its big end has to be split into two halves – rod and cap – which are bolted back together around the crankshaft.</p>
+        <div class="fig fig--crank" data-kind="crank">
+          <svg viewBox="0 0 300 160" role="img" aria-label="Crank drive: the piston moves back and forth, the connecting rod turns this motion into the rotation of the crankshaft. The big end of the connecting rod is split into rod and cap.">
+            <path class="ck-cyl" d="M178,52 H34 V108 H178"/>
+            <g class="ck-piston">
+              <rect class="ck-piston-body" x="-26" y="54" width="36" height="52" rx="3"/>
+              <line class="ck-ring" x1="-20" y1="54" x2="-20" y2="106"/>
+              <line class="ck-ring" x1="-14" y1="54" x2="-14" y2="106"/>
+              <circle class="ck-pin" cx="0" cy="80" r="5"/>
+            </g>
+            <g class="ck-crank">
+              <path class="ck-weight" d="M212,58 A24,24 0 0 0 212,102 Z"/>
+              <line class="ck-arm" x1="222" y1="80" x2="256" y2="80"/>
+              <circle class="ck-pin" cx="256" cy="80" r="7"/>
+            </g>
+            <g class="ck-rod">
+              <path class="ck-shank" d="M7,-5 L98,-9 L98,9 L7,5 Z"/>
+              <circle class="ck-eye" cx="0" cy="0" r="9"/>
+              <circle class="ck-eye ck-eye--big" cx="112" cy="0" r="16"/>
+              <circle class="ck-bore" cx="0" cy="0" r="4.5"/>
+              <circle class="ck-bore" cx="112" cy="0" r="8"/>
+              <line class="ck-split" x1="112" y1="-19" x2="112" y2="19"/>
+            </g>
+            <circle class="ck-journal" cx="222" cy="80" r="9"/>
+            <text class="fig-label" x="40" y="44">piston</text>
+            <text class="fig-label" x="120" y="138" text-anchor="middle">connecting rod</text>
+            <text class="fig-label" x="226" y="138" text-anchor="middle">crankshaft</text>
+            <path class="ck-split-key" d="M24,152 h14"/>
+            <text class="fig-label" x="42" y="155">split line of the big end: rod | cap</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 · Complication ===== -->
+    <section class="section scene scene--long" data-scene="complication" aria-labelledby="complication">
+      <div class="container">
+        <p class="kicker kicker--warn">Complication</p>
+        <h2 id="complication" data-type>Breaking it on purpose</h2>
+        <p data-type="fast">However, this simple and effective manufacturing process poses challenges for manufacturing simulation when it comes to comparing different variants, solely based on simulation, in terms of their form stability.</p>
+        <div class="fig fig--crack">
+          <svg viewBox="0 0 300 160" role="img" aria-label="Cracking: a wedge is driven between two mandrels inside the big end. Starting at the notches, the crack runs through the big end, and the bore loses its ideal circular shape and becomes egg-shaped (shown exaggerated). The rod with its threaded bolt holes moves away on a slide while the cap with its through holes is held.">
+            <g class="cr-rod">
+              <path class="cr-part" d="M118,14 H90 V22.2 Q83.3,48.6 66.8,60.2 L12,63 V97 L66.8,99.8 Q83.3,111.4 90,137.8 V146 H118 V118 A38,38 0 0 1 118,42 Z"/>
+              <path class="cr-thread" d="M118,21.2 L116.1,23 L114.2,21.2 L112.3,23 L110.4,21.2 L108.5,23 L106.6,21.2 L104.7,23 L102.8,21.2 L100.9,23 L99,21.2 L97.1,23 L95.2,21.2 L92,26.3 L95.2,31.4 L97.1,29.6 L99,31.4 L100.9,29.6 L102.8,31.4 L104.7,29.6 L106.6,31.4 L108.5,29.6 L110.4,31.4 L112.3,29.6 L114.2,31.4 L116.1,29.6 L118,31.4 M118,138.8 L116.1,137 L114.2,138.8 L112.3,137 L110.4,138.8 L108.5,137 L106.6,138.8 L104.7,137 L102.8,138.8 L100.9,137 L99,138.8 L97.1,137 L95.2,138.8 L92,133.7 L95.2,128.6 L97.1,130.4 L99,128.6 L100.9,130.4 L102.8,128.6 L104.7,130.4 L106.6,128.6 L108.5,130.4 L110.4,128.6 L112.3,130.4 L114.2,128.6 L116.1,130.4 L118,128.6"/>
+              <path class="cr-tool" d="M114,45 A35,35 0 0 0 114,115 Z"/>
+              <path class="cr-face" d="M118,14 L117,18 L120,22 L116,27 L120,32 L118,36 L118,42 M118,146 L119,142 L116,138 L120,133 L116,128 L118,124 L118,118"/>
+            </g>
+            <g class="cr-cap">
+              <path class="cr-part" d="M118,14 H142.8 V35.2 A51.2,51.2 0 0 1 142.8,124.8 V146 H118 V118 A38,38 0 0 0 118,42 Z"/>
+              <path class="cr-hole" d="M118,21.4 H142.8 M118,31.2 H142.8 M118,128.8 H142.8 M118,138.6 H142.8"/>
+            </g>
+            <path class="cr-tool cr-tool--cap" d="M122,45 A35,35 0 0 1 122,115 Z"/>
+            <path class="cr-ideal" d="M118,42 A38,38 0 0 1 118,118"/>
+            <path class="cr-ideal cr-ideal--rod" d="M118,42 A38,38 0 0 0 118,118"/>
+            <path class="cr-notch" d="M114,42 L118,36 L122,42 M114,118 L118,124 L122,118"/>
+            <path class="cr-crack" pathLength="100" d="M118,36 L120,32 L116,27 L120,22 L117,18 L118,14"/>
+            <path class="cr-crack" pathLength="100" d="M118,124 L116,128 L120,133 L116,138 L119,142 L118,146"/>
+            <g class="cr-wedge">
+              <circle cx="118" cy="80" r="7"/>
+              <path d="M113,75 L123,85 M123,75 L113,85"/>
+            </g>
+            <g class="cr-spread">
+              <path class="cr-arrow" d="M106,80 H92 M97,76 L91,80 L97,84 M130,80 H144 M139,76 L145,80 L139,84"/>
+            </g>
+            <path class="fig-lead" d="M72,17 L96,22"/>
+            <text class="fig-label fig-label--strong" x="34" y="20">thread</text>
+            <path class="fig-lead" d="M184,13 L120,20"/>
+            <text class="fig-label fig-label--strong cr-crack-label" x="186" y="16">crack</text>
+            <path class="fig-lead" d="M184,31 L121,40"/>
+            <text class="fig-label fig-label--strong" x="186" y="34">notch</text>
+            <g class="cr-ideal-key">
+              <path class="fig-lead" d="M184,57 L154,66"/>
+              <text class="fig-label fig-label--ideal" x="186" y="60">ideal circle</text>
+            </g>
+            <path class="fig-lead" d="M184,84 L126,81"/>
+            <text class="fig-label fig-label--strong" x="186" y="87">wedge, driven in ⊗</text>
+            <g class="cr-egg">
+              <path class="fig-lead" d="M184,104 L159,96"/>
+              <text class="fig-warn" x="186" y="107">egg shape</text>
+              <text class="fig-label" x="186" y="118">(exaggerated)</text>
+            </g>
+            <text class="fig-label" x="186" y="140">cap – held</text>
+            <text class="fig-label" x="12" y="54">← rod</text>
+            <text class="fig-label" x="12" y="156">fracture surface: fits only its counterpart</text>
+          </svg>
+        </div>
+        <ul class="facts">
+          <li><b>Lighter</b>To reduce oscillating masses, many geometry variants with less material are being tested.</li>
+          <li><b>Stronger</b>Rising engine power and firing pressures call for new high-strength steels.</li>
+          <li><b>Still round?</b>After cracking and bolting, the deformation of the big end can exceed what honing can correct.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 05 · Approach ===== -->
+    <section class="section section--tint scene" data-scene="solution" aria-labelledby="solution">
+      <div class="container">
+        <p class="kicker">Approach</p>
+        <h2 id="solution" data-type>The whole crack station in one dynamic model</h2>
+        <p data-type="fast">A dynamic finite element simulation reproduces the cracking process – from the impact of the wedge to the crack running through the big end. Cracking and the subsequent bolting are simulated in one model, because their deformations can compensate each other.</p>
+      </div>
+    </section>
+
+    <!-- ===== 06 · Why it matters ===== -->
+    <section class="section scene" data-scene="results" aria-labelledby="results">
+      <div class="container">
+        <h2 id="results" data-type>Why it matters</h2>
+        <p data-type="fast">Lighter con rods without surprises: geometry variants can be checked virtually for form stability before tools and prototypes are built – and the method can be applied to different con rod models.</p>
+        <p class="kicker" style="margin-top:1.2rem">Toolbox</p>
+        <ul class="skills reveal">
+          <li>Dynamic FEA</li>
+          <li>Abaqus</li>
+          <li>Fracture mechanics</li>
+          <li>Cohesive contact modelling</li>
+          <li>Material calibration</li>
+          <li>Manufacturing processes</li>
+          <li>Measurement data evaluation</li>
+        </ul>
+        <a class="next-link" href="kontakt.html" style="margin-top:2rem">
+          <span>cd ../contact</span><span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© 2026 Maximilian Neururer</span>
+      <span><a href="kontakt.html">Contact</a> · <a href="impressum.html">Legal notice</a> · <a href="datenschutz.html">Privacy policy</a></span>
+    </div>
+  </footer>
+</body>
+</html>
